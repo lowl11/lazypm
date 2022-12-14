@@ -1,0 +1,152 @@
+[
+  {
+    "name": "config",
+    "is_folder": true,
+    "path": "/",
+    "children": [
+      {
+        "name": "config_debug.json",
+        "template": "config_debug",
+        "is_folder": false,
+        "path": "/config"
+      },
+      {
+        "name": "config_release.json",
+        "template": "config_release",
+        "is_folder": false,
+        "path": "/config"
+      }
+    ]
+  },
+
+  {
+    "name": "resources",
+    "is_folder": true,
+    "path": "/",
+    "children": [
+      {
+        "name": "scripts",
+        "is_folder": true,
+        "path": "/resources",
+        "children": []
+      }
+    ]
+  },
+
+  {
+    "name": "src",
+    "is_folder": true,
+    "path": "/",
+    "children": [
+      {
+        "name": "api",
+        "is_folder": true,
+        "path": "/src",
+        "children": []
+      },
+      {
+        "name": "controllers",
+        "is_folder": true,
+        "path": "/src",
+        "children": [
+          {
+            "name": "controller",
+            "is_folder": true,
+            "path": "/src/controllers",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "data",
+        "is_folder": true,
+        "path": "/src",
+        "children": [
+          {
+            "name": "entities",
+            "is_folder": true,
+            "path": "/src/data",
+            "children": []
+          },
+          {
+            "name": "errors",
+            "is_folder": true,
+            "path": "/src/data",
+            "children": []
+          },
+          {
+            "name": "models",
+            "is_folder": true,
+            "path": "/src/data",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "definition",
+        "is_folder": true,
+        "path": "/src",
+        "children": []
+      },
+      {
+        "name": "events",
+        "is_folder": true,
+        "path": "/src",
+        "children": []
+      },
+      {
+        "name": "middlewares",
+        "is_folder": true,
+        "path": "/src",
+        "children": []
+      },
+      {
+        "name": "repositories",
+        "is_folder": true,
+        "path": "/src",
+        "children": [
+          {
+            "name": "repository",
+            "is_folder": true,
+            "path": "/src/repositories",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "services",
+        "is_folder": true,
+        "path": "/src",
+        "children": []
+      }
+    ]
+  },
+
+  {
+    "name": ".gitignore",
+    "is_folder": false,
+    "template": "root_gitignore",
+    "path": "/"
+  },
+
+  {
+    "name": "README.md",
+    "is_folder": false,
+    "template": "root_readme",
+    "path": "/"
+  },
+
+  {
+    "name": "go.mod",
+    "is_folder": false,
+    "template": "root_go_mod",
+    "path": "/"
+  },
+
+  {
+    "name": "main.go",
+    "is_folder": false,
+    "template": "root_main",
+    "path": "/"
+  }
+]
