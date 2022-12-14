@@ -3,6 +3,7 @@ package cmd_tool
 import (
 	"bufio"
 	"fmt"
+	"lazypm/src/definition"
 	"log"
 	"os"
 	"strings"
@@ -23,6 +24,16 @@ func Ask(question string) string {
 	}
 
 	return ""
+}
+
+func AskAlways(question string, validationFunc func(value string) error) string {
+	newValue := Ask(question)
+	if err := validationFunc(newValue); err != nil {
+		definition.Printer.Error(err)
+		return AskAlways(question, validationFunc)
+	}
+
+	return newValue
 }
 
 func Confirm(question string) bool {
