@@ -36,6 +36,8 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 	var databaseUsername string
 	var databasePassword string
 	var databaseName string
+	var databaseMaxConnections string
+	var databaseMaxLifetime string
 
 	if useDatabase {
 		databaseServer = cmd_tool.Ask("Database server")
@@ -67,6 +69,18 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 			printer.Error(err)
 			databaseName = cmd_tool.AskAlways("Database name", controller.validateDatabaseName)
 		}
+
+		databaseMaxConnections = cmd_tool.Ask("Database max connections")
+		if err := controller.validateDatabaseMaxConnections(databaseMaxConnections); err != nil {
+			printer.Error(err)
+			databaseName = cmd_tool.AskAlways("Database max connections", controller.validateDatabaseMaxConnections)
+		}
+
+		databaseMaxLifetime = cmd_tool.Ask("Database max lifetime")
+		if err := controller.validateDatabaseMaxLifetime(databaseMaxLifetime); err != nil {
+			printer.Error(err)
+			databaseName = cmd_tool.AskAlways("Database max lifetime", controller.validateDatabaseMaxLifetime)
+		}
 	}
 
 	printer.Info("Create project: " + projectName + "...")
@@ -78,11 +92,13 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 		UseDatabase: useDatabase,
 
 		Database: &models.DatabaseConfig{
-			Server:   databaseServer,
-			Port:     databasePort,
-			Username: databaseUsername,
-			Password: databasePassword,
-			Name:     databaseName,
+			Server:         databaseServer,
+			Port:           databasePort,
+			Username:       databaseUsername,
+			Password:       databasePassword,
+			Name:           databaseName,
+			MaxConnections: databaseMaxConnections,
+			MaxLifetime:    databaseMaxLifetime,
 		},
 	}
 	if err := controller.skeleton.CreateObjects(config); err != nil {

@@ -66,6 +66,8 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 		event.variables["database_user"] = config.Database.Username
 		event.variables["database_password"] = config.Database.Password
 		event.variables["database_name"] = config.Database.Name
+		event.variables["database_max_connections"] = config.Database.MaxConnections
+		event.variables["database_max_lifetime"] = config.Database.MaxLifetime
 
 		// fill templates
 		event.variables["config_database"] = templates.FillVariables("config_database", event.variables)

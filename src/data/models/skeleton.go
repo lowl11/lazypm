@@ -17,6 +17,9 @@ type DatabaseConfig struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Name     string `json:"name"`
+
+	MaxConnections string `json:"max_connections"`
+	MaxLifetime    string `json:"max_lifetime"`
 }
 
 type SkeletonObject struct {

@@ -77,3 +77,29 @@ func (controller *Controller) validateDatabaseName(name string) error {
 
 	return nil
 }
+
+func (controller *Controller) validateDatabaseMaxConnections(maxConnections string) error {
+	if maxConnections == "" {
+		return errors.New("database max connections cannot be empty")
+	}
+
+	reg, _ := regexp.Compile("[0-9]+")
+	if !reg.MatchString(maxConnections) {
+		return errors.New("database max connections must contain only digits")
+	}
+
+	return nil
+}
+
+func (controller *Controller) validateDatabaseMaxLifetime(maxLifeTime string) error {
+	if maxLifeTime == "" {
+		return errors.New("database max lifetime cannot be empty")
+	}
+
+	reg, _ := regexp.Compile("[0-9]+")
+	if !reg.MatchString(maxLifeTime) {
+		return errors.New("database max lifetime must contain only digits")
+	}
+
+	return nil
+}
