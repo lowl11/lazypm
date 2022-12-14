@@ -11,5 +11,10 @@ var (
 		// config
 		"config_debug":   configDebug,
 		"config_release": configRelease,
+
+		// data
+		// models
+		"models_rest":  modelsRest,
+		"models_error": modelsError,
 	}
 )

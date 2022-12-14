@@ -78,7 +78,20 @@
             "name": "models",
             "is_folder": true,
             "path": "/src/data",
-            "children": []
+            "children": [
+              {
+                "name": "rest.go",
+                "is_folder": false,
+                "path": "/src/data/models",
+                "template": "models_rest"
+              },
+              {
+                "name": "error.go",
+                "is_folder": false,
+                "path": "/src/data/models",
+                "template": "models_error"
+              }
+            ]
           }
         ]
       },
