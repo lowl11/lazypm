@@ -9,8 +9,9 @@ var (
 		"root_main":      rootMain,
 
 		// config
-		"config_debug":   configDebug,
-		"config_release": configRelease,
+		"config_debug":    configDebug,
+		"config_release":  configRelease,
+		"config_database": configDatabase,
 
 		// api
 		"api_routes":      apiRoutes,
@@ -18,9 +19,10 @@ var (
 		"api_server":      apiServer,
 
 		// definition
-		"definition_config":    definitionConfig,
-		"definition_constants": definitionConstants,
-		"definition_server":    definitionServer,
+		"definition_config":          definitionConfig,
+		"definition_constants":       definitionConstants,
+		"definition_server":          definitionServer,
+		"definition_config_database": definitionConfigDatabase,
 
 		// middlewares
 		"middlewares_timeout": middlewaresTimeout,

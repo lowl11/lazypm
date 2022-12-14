@@ -13,7 +13,9 @@ import (
 )
 
 var (
-	validateDatabase = array.NewWithList[string]("repositories", "scripts", "start")
+	validateDatabase = array.NewWithList[string](
+		"repositories", "scripts", "start", "script_event",
+	)
 )
 
 func (event *Event) validateObject(config *models.ProjectConfig, object *models.SkeletonObject) bool {
@@ -58,8 +60,16 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 	event.variables["project_description"] = config.Description
 
 	if config.UseDatabase {
-		event.variables["config_database"] = templates.ConfigDatabase
-		event.variables["definition_config_database"] = templates.DefinitionConfigDatabase
+		// fill database variables
+		event.variables["database_server"] = config.Database.Server
+		event.variables["database_port"] = config.Database.Port
+		event.variables["database_user"] = config.Database.Username
+		event.variables["database_password"] = config.Database.Password
+		event.variables["database_name"] = config.Database.Name
+
+		// fill templates
+		event.variables["config_database"] = templates.FillVariables("config_database", event.variables)
+		event.variables["definition_config_database"] = templates.FillVariables("definition_config_database", event.variables)
 	}
 
 	// create file if it does not exist

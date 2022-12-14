@@ -12,9 +12,9 @@ const (
 	}<% config_database %>
 }`
 
-	ConfigDatabase = `,
+	configDatabase = `,
 	"database": {
-		"connection": "host=185.22.67.118 port=5432 user=testuser password=qwerty dbname=learnstest sslmode=disable",
+		"connection": "host=<% database_server %> port=<% database_port %> user=<% database_user %> password=<% database_password %> dbname=<% database_name %> sslmode=disable",
     	"max_connections": 30,
     	"lifetime": 5	
 	}`

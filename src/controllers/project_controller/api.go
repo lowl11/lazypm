@@ -31,6 +31,43 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 
 	// use database
 	useDatabase := cmd_tool.Confirm("Use Database?")
+	var databaseServer string
+	var databasePort string
+	var databaseUsername string
+	var databasePassword string
+	var databaseName string
+
+	if useDatabase {
+		databaseServer = cmd_tool.Ask("Database server")
+		if err := controller.validateDatabaseServer(databaseServer); err != nil {
+			printer.Error(err)
+			databaseServer = cmd_tool.AskAlways("Database server", controller.validateDatabaseServer)
+		}
+
+		databasePort = cmd_tool.Ask("Database port")
+		if err := controller.validateDatabasePort(databasePort); err != nil {
+			printer.Error(err)
+			databasePort = cmd_tool.AskAlways("Database port", controller.validateDatabasePort)
+		}
+
+		databaseUsername = cmd_tool.Ask("Database username")
+		if err := controller.validateDatabaseUsername(databaseUsername); err != nil {
+			printer.Error(err)
+			databaseUsername = cmd_tool.AskAlways("Database username", controller.validateDatabaseUsername)
+		}
+
+		databasePassword = cmd_tool.Ask("Database password")
+		if err := controller.validateDatabasePassword(databasePassword); err != nil {
+			printer.Error(err)
+			databasePassword = cmd_tool.AskAlways("Database password", controller.validateDatabasePassword)
+		}
+
+		databaseName = cmd_tool.Ask("Database name")
+		if err := controller.validateDatabaseName(databaseName); err != nil {
+			printer.Error(err)
+			databaseName = cmd_tool.AskAlways("Database name", controller.validateDatabaseName)
+		}
+	}
 
 	printer.Info("Create project: " + projectName + "...")
 
@@ -39,6 +76,14 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 		Name:        projectName,
 		Description: projectDescription,
 		UseDatabase: useDatabase,
+
+		Database: &models.DatabaseConfig{
+			Server:   databaseServer,
+			Port:     databasePort,
+			Username: databaseUsername,
+			Password: databasePassword,
+			Name:     databaseName,
+		},
 	}
 	if err := controller.skeleton.CreateObjects(config); err != nil {
 		return err

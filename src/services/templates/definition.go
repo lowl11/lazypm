@@ -59,7 +59,7 @@ func initServer() {
 	Server.Use(middlewares.Timeout())
 }`
 
-	DefinitionConfigDatabase = `Database struct {
+	definitionConfigDatabase = `Database struct {
 		Connection     string ` + "`json:\"connection\"`" + `
 		MaxConnections int    ` + "`json:\"max_connections\"`" + `
 		Lifetime       int    ` + "`json:\"lifetime\"`" + `
