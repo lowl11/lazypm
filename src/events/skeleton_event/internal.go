@@ -2,6 +2,7 @@ package skeleton_event
 
 import (
 	"encoding/json"
+	"github.com/lowl11/lazy-collection/array"
 	"github.com/lowl11/lazyfile/fileapi"
 	"github.com/lowl11/lazyfile/folderapi"
 	"lazypm/src/data/entities"
@@ -11,9 +12,13 @@ import (
 	"strings"
 )
 
+var (
+	validateDatabase = array.NewWithList[string]("repositories", "scripts", "start")
+)
+
 func (event *Event) validateObject(config *models.ProjectConfig, object *models.SkeletonObject) bool {
 	if object.IsFolder {
-		if object.Name == "repositories" {
+		if validateDatabase.Contains(object.Name) {
 			return config.UseDatabase
 		}
 	}
@@ -48,8 +53,14 @@ func (event *Event) createObject(object *models.SkeletonObject, config *models.P
 }
 
 func (event *Event) createFile(file *models.SkeletonObject, config *models.ProjectConfig) error {
+	// prepare variables
 	event.variables["project_name"] = config.Name
 	event.variables["project_description"] = config.Description
+
+	if config.UseDatabase {
+		event.variables["config_database"] = templates.ConfigDatabase
+		event.variables["definition_config_database"] = templates.DefinitionConfigDatabase
+	}
 
 	// create file if it does not exist
 	if !file.Exist {
@@ -138,4 +149,7 @@ func (event *Event) loadVariables() {
 	event.variables["project_name"] = "project_name"
 	event.variables["project_description"] = "Your Project Description"
 	event.variables["port"] = "8080"
+
+	event.variables["config_database"] = ""
+	event.variables["definition_config_database"] = ""
 }

@@ -28,7 +28,14 @@
         "name": "scripts",
         "is_folder": true,
         "path": "/resources",
-        "children": []
+        "children": [
+          {
+            "name": "start",
+            "is_folder": true,
+            "path": "/resources/scripts",
+            "children": []
+          }
+        ]
       }
     ]
   },

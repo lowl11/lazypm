@@ -13,6 +13,8 @@ type Configuration struct {
 	Server struct {
 		Port string ` + "`json:\"port\"`" + `
 	} ` + "`json:\"server\"`" + `
+
+	<% definition_config_database %>
 }
 
 var Config Configuration
@@ -56,4 +58,10 @@ func initServer() {
 	Server.Use(middleware.Recover())
 	Server.Use(middlewares.Timeout())
 }`
+
+	DefinitionConfigDatabase = `Database struct {
+		Connection     string ` + "`json:\"connection\"`" + `
+		MaxConnections int    ` + "`json:\"max_connections\"`" + `
+		Lifetime       int    ` + "`json:\"lifetime\"`" + `
+	} ` + "`json:\"database\"`" + ``
 )
