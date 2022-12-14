@@ -68,6 +68,8 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 		event.variables["database_name"] = config.Database.Name
 		event.variables["database_max_connections"] = config.Database.MaxConnections
 		event.variables["database_max_lifetime"] = config.Database.MaxLifetime
+		event.variables["gomod_sqlx"] = "github.com/jmoiron/sqlx v1.3.5"
+		event.variables["gomod_postgres"] = "github.com/lib/pq v1.2.0"
 
 		// fill templates
 		event.variables["config_database"] = templates.FillVariables("config_database", event.variables)
@@ -161,7 +163,4 @@ func (event *Event) loadVariables() {
 	event.variables["project_name"] = "project_name"
 	event.variables["project_description"] = "Your Project Description"
 	event.variables["port"] = "8080"
-
-	event.variables["config_database"] = ""
-	event.variables["definition_config_database"] = ""
 }
