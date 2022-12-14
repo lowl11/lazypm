@@ -5,6 +5,7 @@ import (
 	"lazypm/src/data/errors"
 	"lazypm/src/data/models"
 	"lazypm/src/definition"
+	"lazypm/src/services/cmd_tool"
 )
 
 func (controller *Controller) Init(ctx cli_route.IContext) error {
@@ -14,13 +15,16 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 		return errors.ProjectInitParam
 	}
 
+	// start collecting params
 	projectName := params[0]
+	projectDescription := cmd_tool.Ask("Project Description")
 
 	printer.Info("Create project: " + projectName + "...")
 
 	// create not exist folders & files
 	config := &models.ProjectConfig{
-		Name: projectName,
+		Name:        projectName,
+		Description: projectDescription,
 	}
 	if err := controller.skeleton.CreateObjects(config); err != nil {
 		return err

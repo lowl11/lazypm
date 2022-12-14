@@ -39,6 +39,7 @@ func (event *Event) createObject(object *models.SkeletonObject, config *models.P
 
 func (event *Event) createFile(file *models.SkeletonObject, config *models.ProjectConfig) error {
 	event.variables["project_name"] = config.Name
+	event.variables["project_description"] = config.Description
 
 	// create file if it does not exist
 	if !file.Exist {
