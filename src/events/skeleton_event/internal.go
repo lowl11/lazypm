@@ -163,4 +163,19 @@ func (event *Event) loadVariables() {
 	event.variables["project_name"] = "project_name"
 	event.variables["project_description"] = "Your Project Description"
 	event.variables["port"] = "8080"
+
+	// database variables
+	event.variables["database_server"] = ""
+	event.variables["database_port"] = ""
+	event.variables["database_user"] = ""
+	event.variables["database_password"] = ""
+	event.variables["database_name"] = ""
+	event.variables["database_max_connections"] = ""
+	event.variables["database_max_lifetime"] = ""
+	event.variables["gomod_sqlx"] = ""
+	event.variables["gomod_postgres"] = ""
+
+	// fill templates
+	event.variables["config_database"] = ""
+	event.variables["definition_config_database"] = ""
 }
