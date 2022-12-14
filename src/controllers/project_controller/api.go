@@ -44,5 +44,10 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 		return err
 	}
 
+	// format project
+	//if err := project_formatter.All("."); err != nil {
+	//	printer.Error(err)
+	//}
+
 	return nil
 }

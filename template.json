@@ -53,7 +53,14 @@
             "name": "controller",
             "is_folder": true,
             "path": "/src/controllers",
-            "children": []
+            "children": [
+              {
+                "name": "base.go",
+                "is_folder": false,
+                "path": "/src/controllers/controller",
+                "template": "controllers_base"
+              }
+            ]
           }
         ]
       },

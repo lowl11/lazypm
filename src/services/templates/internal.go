@@ -12,6 +12,9 @@ var (
 		"config_debug":   configDebug,
 		"config_release": configRelease,
 
+		// controllers
+		"controllers_base": controllersBase,
+
 		// data
 		// models
 		"models_rest":  modelsRest,
