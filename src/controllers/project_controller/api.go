@@ -29,12 +29,16 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 		projectDescription = cmd_tool.AskAlways("Project Description", controller.validateProjectDescription)
 	}
 
+	// use database
+	useDatabase := cmd_tool.Confirm("Use Database?")
+
 	printer.Info("Create project: " + projectName + "...")
 
 	// create not exist folders & files
 	config := &models.ProjectConfig{
 		Name:        projectName,
 		Description: projectDescription,
+		UseDatabase: useDatabase,
 	}
 	if err := controller.skeleton.CreateObjects(config); err != nil {
 		return err

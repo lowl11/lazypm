@@ -5,6 +5,7 @@ import "github.com/lowl11/lazy-collection/array"
 type ProjectConfig struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	UseDatabase bool   `json:"use_database"`
 }
 
 type SkeletonObject struct {

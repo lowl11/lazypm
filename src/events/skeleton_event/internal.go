@@ -11,9 +11,19 @@ import (
 	"strings"
 )
 
+func (event *Event) validateObject(config *models.ProjectConfig, object *models.SkeletonObject) bool {
+	if object.IsFolder {
+		if object.Name == "repositories" {
+			return config.UseDatabase
+		}
+	}
+
+	return true
+}
+
 func (event *Event) createObject(object *models.SkeletonObject, config *models.ProjectConfig) error {
 	// create object if it does not exist
-	if object.IsFolder && !object.Exist {
+	if object.IsFolder && !object.Exist && event.validateObject(config, object) {
 		if err := folderapi.Create(object.Path, object.Name); err != nil {
 			return err
 		}
