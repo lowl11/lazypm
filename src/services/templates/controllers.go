@@ -1,6 +1,26 @@
 package templates
 
 const (
+	// api
+	controllersApi = `package controllers
+
+import (
+	"<% project_name %>/src/controllers/static_controller"
+	"<% project_name %>/src/events"
+	"<% project_name %>/src/repositories"
+)
+
+type ApiControllers struct {
+	Static *static_controller.Controller
+}
+
+func Get(apiRepositories *repositories.ApiRepositories, apiEvents *events.ApiEvents) *ApiControllers {
+	return &ApiControllers{
+		Static: static_controller.Create(),
+	}
+}`
+
+	// base controller
 	controllersBase = `package controller
 
 import (
@@ -70,4 +90,30 @@ func (controller *Base) RequiredField(value interface{}, name string) error {
 
 	return nil
 }`
+
+	// static controller
+	controllersStaticApi = `package static_controller
+
+import (
+	"github.com/labstack/echo/v4"
+	"<% project_name %>/src/data/errors"
+)
+
+func (controller *Controller) RouteNotFound(ctx echo.Context) error {
+	return controller.NotFound(ctx, errors.RouteNotFound)
+}`
+	controllersStaticController = `package static_controller
+
+import "<% project_name %>/src/controllers/controller"
+
+type Controller struct {
+	controller.Base
+}
+
+func Create() *Controller {
+	return &Controller{}
+}`
+	controllersStaticValidation = `package static_controller
+
+//`
 )

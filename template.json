@@ -42,7 +42,26 @@
         "name": "api",
         "is_folder": true,
         "path": "/src",
-        "children": []
+        "children": [
+          {
+            "name": "routes.go",
+            "is_folder": false,
+            "path": "/src/api",
+            "template": "api_routes"
+          },
+          {
+            "name": "middlewares.go",
+            "is_folder": false,
+            "path": "/src/api",
+            "template": "api_middlewares"
+          },
+          {
+            "name": "server.go",
+            "is_folder": false,
+            "path": "/src/api",
+            "template": "api_server"
+          }
+        ]
       },
       {
         "name": "controllers",
@@ -61,6 +80,37 @@
                 "template": "controllers_base"
               }
             ]
+          },
+          {
+            "name": "static_controller",
+            "is_folder": true,
+            "path": "/src/controllers",
+            "children": [
+              {
+                "name": "api.go",
+                "is_folder": false,
+                "path": "/src/controllers/static_controller",
+                "template": "controllers_static_api"
+              },
+              {
+                "name": "controller.go",
+                "is_folder": false,
+                "path": "/src/controllers/static_controller",
+                "template": "controllers_static_controller"
+              },
+              {
+                "name": "validation.go",
+                "is_folder": false,
+                "path": "/src/controllers/static_controller",
+                "template": "controllers_static_validation"
+              }
+            ]
+          },
+          {
+            "name": "api.go",
+            "is_folder": false,
+            "path": "/src/controllers",
+            "template": "controllers_api"
           }
         ]
       },
@@ -79,7 +129,14 @@
             "name": "errors",
             "is_folder": true,
             "path": "/src/data",
-            "children": []
+            "children": [
+              {
+                "name": "static.go",
+                "is_folder": false,
+                "path": "/src/data/errors",
+                "template": "errors_static"
+              }
+            ]
           },
           {
             "name": "models",
@@ -106,19 +163,77 @@
         "name": "definition",
         "is_folder": true,
         "path": "/src",
-        "children": []
+        "children": [
+          {
+            "name": "config.go",
+            "is_folder": false,
+            "path": "/src/definition",
+            "template": "definition_config"
+          },
+          {
+            "name": "constants.go",
+            "is_folder": false,
+            "path": "/src/definition",
+            "template": "definition_constants"
+          },
+          {
+            "name": "server.go",
+            "is_folder": false,
+            "path": "/src/definition",
+            "template": "definition_server"
+          }
+        ]
       },
       {
         "name": "events",
         "is_folder": true,
         "path": "/src",
-        "children": []
+        "children": [
+          {
+            "name": "script_event",
+            "is_folder": true,
+            "path": "/src/events",
+            "children": [
+              {
+                "name": "api.go",
+                "is_folder": false,
+                "path": "/src/events/script_event",
+                "template": "events_script_api"
+              },
+              {
+                "name": "event.go",
+                "is_folder": false,
+                "path": "/src/events/script_event",
+                "template": "events_script_event"
+              },
+              {
+                "name": "internal.go",
+                "is_folder": false,
+                "path": "/src/events/script_event",
+                "template": "events_script_internal"
+              }
+            ]
+          },
+          {
+            "name": "api.go",
+            "is_folder": false,
+            "path": "/src/events",
+            "template": "events_api"
+          }
+        ]
       },
       {
         "name": "middlewares",
         "is_folder": true,
         "path": "/src",
-        "children": []
+        "children": [
+          {
+            "name": "timeout.go",
+            "is_folder": false,
+            "path": "/src/middlewares",
+            "template": "middlewares_timeout"
+          }
+        ]
       },
       {
         "name": "repositories",
@@ -129,7 +244,20 @@
             "name": "repository",
             "is_folder": true,
             "path": "/src/repositories",
-            "children": []
+            "children": [
+              {
+                "name": "base.go",
+                "is_folder": false,
+                "path": "/src/repositories/repository",
+                "template": "repository_base"
+              }
+            ]
+          },
+          {
+            "name": "api.go",
+            "is_folder": false,
+            "path": "/src/repositories",
+            "template": "repositories_api"
           }
         ]
       },

@@ -12,12 +12,45 @@ var (
 		"config_debug":   configDebug,
 		"config_release": configRelease,
 
+		// api
+		"api_routes":      apiRoutes,
+		"api_middlewares": apiMiddlewares,
+		"api_server":      apiServer,
+
+		// definition
+		"definition_config":    definitionConfig,
+		"definition_constants": definitionConstants,
+		"definition_server":    definitionServer,
+
+		// middlewares
+		"middlewares_timeout": middlewaresTimeout,
+
 		// controllers
+		"controllers_api":  controllersApi,
 		"controllers_base": controllersBase,
+		// static controller
+		"controllers_static_api":        controllersStaticApi,
+		"controllers_static_controller": controllersStaticController,
+		"controllers_static_validation": controllersStaticValidation,
+
+		// repositories
+		"repositories_api": repositoriesApi,
+		"repository_base":  repositoryBase,
 
 		// data
 		// models
 		"models_rest":  modelsRest,
 		"models_error": modelsError,
+
+		// errors
+		"errors_static": errorsStatic,
+
+		// events
+		"events_api": eventsApi,
+
+		// script
+		"events_script_api":      eventsScriptApi,
+		"events_script_event":    eventsScriptEvent,
+		"events_script_internal": eventsScriptInternal,
 	}
 )
