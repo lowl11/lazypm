@@ -8,7 +8,7 @@ import (
 	"<% project_name %>/src/controllers"
 	"<% project_name %>/src/definition"
 	"<% project_name %>/src/events"
-	"<% project_name %>/src/repositories"
+	<% api_import_repositories %>
 	"net/http"
 )
 
@@ -21,14 +21,10 @@ func setRoutes(server *echo.Echo) {
 		logger.Fatal(err, "Initializing events error")
 	}
 
-	// репозитории
-	apiRepositories, err := repositories.Get(apiEvents)
-	if err != nil {
-		logger.Fatal(err, "Connecting to database error")
-	}
+	<% api_repositories_create %>
 
 	// контроллеры
-	apiControllers := controllers.Get(apiRepositories, apiEvents)
+	apiControllers := controllers.Get(<% api_field_repositories %>apiEvents)
 
 	server.GET("/health", func(ctx echo.Context) error {
 		return ctx.String(http.StatusOK, "OK")
@@ -66,4 +62,14 @@ func StartServer() {
 	// запуск сервера
 	server.Logger.Fatal(server.Start(definition.Config.Server.Port))
 }`
+
+	apiImportRepositories = "\"<% project_name %>/src/repositories\""
+
+	apiRepositoriesCreate = `// репозитории
+	apiRepositories, err := repositories.Get(apiEvents)
+	if err != nil {
+		logger.Fatal(err, "Connecting to database error")
+	}`
+
+	apiFieldRepositories = `apiRepositories, `
 )

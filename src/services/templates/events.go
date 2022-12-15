@@ -4,21 +4,18 @@ const (
 	eventsApi = `package events
 
 import (
-	"<% project_name %>/src/events/script_event"
+	<% events_import_script %>
 )
 
 type ApiEvents struct {
-	Script *script_event.Event
+	<% events_field_script %>
 }
 
 func Get() (*ApiEvents, error) {
-	scriptEvent, err := script_event.Create()
-	if err != nil {
-		return nil, err
-	}
+	<% events_create_script %>
 
 	return &ApiEvents{
-		Script: scriptEvent,
+		<% events_script_contain %>
 	}, nil
 }`
 
@@ -116,4 +113,11 @@ func (event *Event) readScripts() error {
 
 	return nil
 }`
+
+	eventsScriptCreate = `script, err := script_event.New()
+if err != nil {
+	return nil, err
+}`
+
+	eventsScriptContain = `Script: scriptEvent,`
 )

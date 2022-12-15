@@ -7,14 +7,14 @@ const (
 import (
 	"<% project_name %>/src/controllers/static_controller"
 	"<% project_name %>/src/events"
-	"<% project_name %>/src/repositories"
+	<% controllers_import_repositories %>
 )
 
 type ApiControllers struct {
 	Static *static_controller.Controller
 }
 
-func Get(apiRepositories *repositories.ApiRepositories, apiEvents *events.ApiEvents) *ApiControllers {
+func Get(<% controllers_argument_repositories %>apiEvents *events.ApiEvents) *ApiControllers {
 	return &ApiControllers{
 		Static: static_controller.Create(),
 	}
@@ -116,4 +116,7 @@ func Create() *Controller {
 	controllersStaticValidation = `package static_controller
 
 //`
+
+	controllersImportRepositories   = `"<% project_name %>/src/repositories"`
+	controllersArgumentRepositories = "apiRepositories *repositories.ApiRepositories, "
 )

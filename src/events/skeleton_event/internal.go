@@ -73,6 +73,7 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 
 	// fill database variables
 	if config.UseDatabase {
+		// config variables
 		event.variables["database_server"] = config.Database.Server
 		event.variables["database_port"] = config.Database.Port
 		event.variables["database_user"] = config.Database.Username
@@ -80,8 +81,21 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 		event.variables["database_name"] = config.Database.Name
 		event.variables["database_max_connections"] = config.Database.MaxConnections
 		event.variables["database_max_lifetime"] = config.Database.MaxLifetime
+
+		// go mod libraries
 		event.variables["gomod_sqlx"] = "github.com/jmoiron/sqlx v1.3.5"
 		event.variables["gomod_postgres"] = "github.com/lib/pq v1.2.0"
+
+		// imports
+		event.variables["events_import_script"] = "\"" + config.Name + "/src/events/script_event\""
+		event.variables["events_field_script"] = "Script *script_event.Event"
+		event.variables["events_create_script"] = templates.Get("events_script_create")
+		event.variables["events_script_contain"] = templates.Get("events_script_contain")
+		event.variables["controllers_import_repositories"] = templates.FillVariables("controllers_import_repositories", event.variables)
+		event.variables["controllers_argument_repositories"] = templates.Get("controllers_argument_repositories")
+		event.variables["api_import_repositories"] = templates.FillVariables("api_import_repositories", event.variables)
+		event.variables["api_repositories_create"] = templates.Get("api_repositories_create")
+		event.variables["api_field_repositories"] = templates.Get("api_field_repositories")
 
 		// fill templates
 		event.variables["config_database"] = templates.FillVariables("config_database", event.variables)
@@ -190,4 +204,15 @@ func (event *Event) loadVariables() {
 	// fill templates
 	event.variables["config_database"] = ""
 	event.variables["definition_config_database"] = ""
+
+	// database imports
+	event.variables["events_import_script"] = ""
+	event.variables["events_field_script"] = ""
+	event.variables["events_create_script"] = ""
+	event.variables["events_script_contain"] = "//"
+	event.variables["controllers_import_repositories"] = ""
+	event.variables["controllers_argument_repositories"] = ""
+	event.variables["api_import_repositories"] = ""
+	event.variables["api_repositories_create"] = ""
+	event.variables["api_field_repositories"] = ""
 }

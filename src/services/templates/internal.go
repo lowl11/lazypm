@@ -14,9 +14,12 @@ var (
 		"config_database": configDatabase,
 
 		// api
-		"api_routes":      apiRoutes,
-		"api_middlewares": apiMiddlewares,
-		"api_server":      apiServer,
+		"api_routes":              apiRoutes,
+		"api_middlewares":         apiMiddlewares,
+		"api_server":              apiServer,
+		"api_import_repositories": apiImportRepositories,
+		"api_repositories_create": apiRepositoriesCreate,
+		"api_field_repositories":  apiFieldRepositories,
 
 		// definition
 		"definition_config":          definitionConfig,
@@ -51,8 +54,12 @@ var (
 		"events_api": eventsApi,
 
 		// script
-		"events_script_api":      eventsScriptApi,
-		"events_script_event":    eventsScriptEvent,
-		"events_script_internal": eventsScriptInternal,
+		"events_script_api":                 eventsScriptApi,
+		"events_script_event":               eventsScriptEvent,
+		"events_script_internal":            eventsScriptInternal,
+		"events_script_create":              eventsScriptCreate,
+		"events_script_contain":             eventsScriptContain,
+		"controllers_import_repositories":   controllersImportRepositories,
+		"controllers_argument_repositories": controllersArgumentRepositories,
 	}
 )
