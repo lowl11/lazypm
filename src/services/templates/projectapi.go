@@ -9,7 +9,6 @@ import (
 	"<% project_name %>/src/definition"
 	"<% project_name %>/src/events"
 	<% api_import_repositories %>
-	"net/http"
 )
 
 func setRoutes(server *echo.Echo) {
@@ -26,9 +25,8 @@ func setRoutes(server *echo.Echo) {
 	// контроллеры
 	apiControllers := controllers.Get(<% api_field_repositories %>apiEvents)
 
-	server.GET("/health", func(ctx echo.Context) error {
-		return ctx.String(http.StatusOK, "OK")
-	})
+	// статичные методы
+	server.GET("/health", apiControllers.Static.Health)
 	server.RouteNotFound("*", apiControllers.Static.RouteNotFound)
 }`
 
