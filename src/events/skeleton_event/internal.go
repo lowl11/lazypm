@@ -19,8 +19,13 @@ var (
 )
 
 func (event *Event) validateObject(config *models.ProjectConfig, object *models.SkeletonObject) bool {
+	// database case validation
 	if object.IsFolder {
-		if validateDatabase.Contains(object.Name) {
+		pathContains := validateDatabase.Single(func(item string) bool {
+			return strings.Contains(object.Path, item)
+		}) != nil
+
+		if validateDatabase.Contains(object.Name) || pathContains {
 			return config.UseDatabase
 		}
 	}
@@ -55,12 +60,19 @@ func (event *Event) createObject(object *models.SkeletonObject, config *models.P
 }
 
 func (event *Event) createFile(file *models.SkeletonObject, config *models.ProjectConfig) error {
+	// if file path contains database path
+	if validateDatabase.Single(func(item string) bool {
+		return strings.Contains(file.Path, item)
+	}) != nil {
+		return nil
+	}
+
 	// prepare variables
 	event.variables["project_name"] = config.Name
 	event.variables["project_description"] = config.Description
 
+	// fill database variables
 	if config.UseDatabase {
-		// fill database variables
 		event.variables["database_server"] = config.Database.Server
 		event.variables["database_port"] = config.Database.Port
 		event.variables["database_user"] = config.Database.Username
