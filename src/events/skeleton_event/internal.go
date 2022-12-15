@@ -61,10 +61,12 @@ func (event *Event) createObject(object *models.SkeletonObject, config *models.P
 
 func (event *Event) createFile(file *models.SkeletonObject, config *models.ProjectConfig) error {
 	// if file path contains database path
-	if validateDatabase.Single(func(item string) bool {
-		return strings.Contains(file.Path, item)
-	}) != nil {
-		return nil
+	if !config.UseDatabase {
+		if validateDatabase.Single(func(item string) bool {
+			return strings.Contains(file.Path, item)
+		}) != nil {
+			return nil
+		}
 	}
 
 	// prepare variables

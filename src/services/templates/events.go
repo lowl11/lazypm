@@ -114,10 +114,10 @@ func (event *Event) readScripts() error {
 	return nil
 }`
 
-	eventsScriptCreate = `script, err := script_event.New()
+	eventsScriptCreate = `script, err := script_event.Create()
 if err != nil {
 	return nil, err
 }`
 
-	eventsScriptContain = `Script: scriptEvent,`
+	eventsScriptContain = `Script: script,`
 )
