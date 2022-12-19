@@ -37,6 +37,10 @@ var (
 		"controllers_static_api":        controllersStaticApi,
 		"controllers_static_controller": controllersStaticController,
 		"controllers_static_validation": controllersStaticValidation,
+		// new controller
+		"controllers_new_api":        controllersNewApi,
+		"controllers_new_controller": controllersNewController,
+		"controllers_new_validation": controllersNewValidation,
 
 		// repositories
 		"repositories_api": repositoriesApi,

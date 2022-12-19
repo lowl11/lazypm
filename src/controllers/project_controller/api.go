@@ -22,6 +22,8 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 		projectName = cmd_tool.AskAlways("Project Name", controller.validateProjectName)
 	}
 
+	printer.Info("Create project: " + projectName + "...")
+
 	// project description
 	projectDescription := cmd_tool.Ask("Project Description")
 	if err := controller.validateProjectDescription(projectDescription); err != nil {
@@ -82,8 +84,6 @@ func (controller *Controller) Init(ctx cli_route.IContext) error {
 			databaseName = cmd_tool.AskAlways("Database max lifetime", controller.validateDatabaseMaxLifetime)
 		}
 	}
-
-	printer.Info("Create project: " + projectName + "...")
 
 	// create not exist folders & files
 	config := &models.ProjectConfig{

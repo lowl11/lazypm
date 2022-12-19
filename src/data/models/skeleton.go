@@ -22,6 +22,10 @@ type DatabaseConfig struct {
 	MaxLifetime    string `json:"max_lifetime"`
 }
 
+type ControllerConfig struct {
+	Name string
+}
+
 type SkeletonObject struct {
 	Name     string `json:"name"`
 	IsFolder bool   `json:"is_folder"`

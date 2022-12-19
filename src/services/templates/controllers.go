@@ -124,4 +124,37 @@ func Create() *Controller {
 
 	controllersImportRepositories   = `"<% project_name %>/src/repositories"`
 	controllersArgumentRepositories = "apiRepositories *repositories.ApiRepositories, "
+
+	// new controller
+	controllersNewApi = `package <% new_controller_name %>_controller
+
+func (controller *Controller) Get(ctx echo.Context) error {
+	return controller.Ok(ctx, "OK")
+}
+
+func (controller *Controller) Add(ctx echo.Context) error {
+	return controller.Ok(ctx, "OK")
+}
+
+func (controller *Controller) Update(ctx echo.Context) error {
+	return controller.Ok(ctx, "OK")
+}
+
+func (controller *Controller) Delete(ctx echo.Context) error {
+	return controller.Ok(ctx, "OK")
+}`
+	controllersNewController = `package <% new_controller_name %>_controller
+
+import "<% project_name %>/src/controllers/controller"
+
+type Controller {
+	controller.Base
+}
+
+func Create() *Controller {
+	return &Controller{}
+}`
+	controllersNewValidation = `package <% new_controller_name %>_controller
+
+// validations`
 )
