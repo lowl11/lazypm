@@ -161,14 +161,15 @@ func (event *Event) loadStructure() error {
 		var exist bool
 		var empty bool
 
-		if obj.IsFolder {
+		if obj.IsFolder { // define is object folder
 			exist = folderapi.Exist(pathWithName)
 			empty = folderapi.Empty(pathWithName)
-		} else {
+		} else { // define is object file
 			exist = fileapi.Exist(pathWithName)
 			empty = fileapi.Empty(pathWithName)
 		}
 
+		// add element to skeleton
 		event.skeleton.Push(models.SkeletonObject{
 			Name:     obj.Name,
 			IsFolder: obj.IsFolder,
@@ -183,6 +184,18 @@ func (event *Event) loadStructure() error {
 			Empty: empty,
 		})
 	}
+
+	// create package.json
+	event.skeleton.Push(models.SkeletonObject{
+		Name:     "package.json",
+		IsFolder: false,
+		Path:     event.basePath,
+
+		Template: "root_package",
+
+		Exist: fileapi.Exist("package.json"),
+		Empty: fileapi.Empty("package.json"),
+	})
 
 	return nil
 }

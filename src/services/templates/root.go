@@ -51,4 +51,10 @@ app`
 	rootReadme = `# <% project_name %>
 
 > <% project_description %>`
+
+	rootPackage = `{
+	"project": {
+		"name": "<% project_name %>"
+	}
+}`
 )

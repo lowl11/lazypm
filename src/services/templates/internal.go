@@ -7,6 +7,7 @@ var (
 		"root_readme":    rootReadme,
 		"root_go_mod":    rootGoMod,
 		"root_main":      rootMain,
+		"root_package":   rootPackage,
 
 		// config
 		"config_debug":    configDebug,
