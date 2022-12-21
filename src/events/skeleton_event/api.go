@@ -6,6 +6,12 @@ import (
 	"lazypm/src/data/models"
 )
 
+func (event *Event) Variables(variables map[string]string) {
+	for key, value := range variables {
+		event.variables[key] = value
+	}
+}
+
 func (event *Event) CreateObjects(config *models.ProjectConfig) error {
 	defer event.skeleton.Reset()
 	for event.skeleton.Next() {
@@ -26,16 +32,23 @@ func (event *Event) CreateObjects(config *models.ProjectConfig) error {
 }
 
 func (event *Event) NewController(config *models.ControllerConfig) error {
+	// package event check
+	if event.pkg.Get() == nil {
+		return errors.New("package config is empty or null")
+	}
+
+	projectInfo := event.pkg.Get()
+
 	// get /src folders
 	src := event.skeleton.Single(func(item models.SkeletonObject) bool {
 		return item.Name == "src"
 	})
-	if src != nil {
+	if src == nil {
 		return errors.New("src folder not found")
 	}
 
 	// get /src/controllers folder
-	controllers := event.skeleton.Single(func(item models.SkeletonObject) bool {
+	controllers := src.Children.Single(func(item models.SkeletonObject) bool {
 		return item.Name == "controllers"
 	})
 	if controllers == nil {
@@ -43,34 +56,36 @@ func (event *Event) NewController(config *models.ControllerConfig) error {
 	}
 
 	// create new "name"_controller folder
+	controllerFolder := config.Name + "_controller"
+
 	controllers.Children.Push(models.SkeletonObject{
-		Name:     config.Name + "_controller",
+		Name:     controllerFolder,
 		IsFolder: true,
-		Path:     "/src/controllers",
+		Path:     event.basePath + "/src/controllers",
 		Children: array.NewWithList[models.SkeletonObject](
 			models.SkeletonObject{
 				Name:     "api.go",
 				IsFolder: false,
-				Path:     "/src/controllers/" + config.Name,
+				Path:     event.basePath + "/src/controllers/" + controllerFolder,
 				Template: "controllers_new_api",
 			},
 			models.SkeletonObject{
 				Name:     "controller.go",
 				IsFolder: false,
-				Path:     "/src/controllers/" + config.Name,
+				Path:     event.basePath + "/src/controllers/" + controllerFolder,
 				Template: "controllers_new_controller",
 			},
 			models.SkeletonObject{
 				Name:     "validation.go",
 				IsFolder: false,
-				Path:     "/src/controllers/" + config.Name,
+				Path:     event.basePath + "/src/controllers/" + controllerFolder,
 				Template: "controllers_new_validation",
 			},
 		),
 	})
 
 	if err := event.createObject(controllers, &models.ProjectConfig{
-		Name: "test-service",
+		Name: projectInfo.Project.Name,
 	}); err != nil {
 		return err
 	}

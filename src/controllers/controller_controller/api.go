@@ -22,6 +22,13 @@ func (controller *Controller) New(ctx cli_route.IContext) error {
 
 	printer.Info("Create new controller: " + controllerName + "...")
 
+	// new controller variables
+	variables := make(map[string]string)
+	variables["new_controller_name"] = controllerName
+
+	// set variables
+	controller.skeleton.Variables(variables)
+
 	if err := controller.skeleton.NewController(&models.ControllerConfig{
 		Name: controllerName,
 	}); err != nil {

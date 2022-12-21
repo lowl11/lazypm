@@ -3,10 +3,12 @@ package skeleton_event
 import (
 	"github.com/lowl11/lazy-collection/array"
 	"lazypm/src/data/models"
+	"lazypm/src/events/pkg_event"
 )
 
 type Event struct {
 	basePath string
+	pkg      *pkg_event.Event
 
 	skeleton *array.Array[models.SkeletonObject]
 	template *array.Array[models.SkeletonObject]
@@ -14,9 +16,11 @@ type Event struct {
 	variables map[string]string
 }
 
-func Create(basePath string) (*Event, error) {
+func Create(basePath string, pkg *pkg_event.Event) (*Event, error) {
 	event := &Event{
-		basePath:  basePath,
+		basePath: basePath,
+		pkg:      pkg,
+
 		skeleton:  array.New[models.SkeletonObject](),
 		variables: make(map[string]string),
 	}

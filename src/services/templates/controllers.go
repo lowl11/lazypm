@@ -128,6 +128,10 @@ func Create() *Controller {
 	// new controller
 	controllersNewApi = `package <% new_controller_name %>_controller
 
+import (
+	"github.com/labstack/echo/v4"
+)
+
 func (controller *Controller) Get(ctx echo.Context) error {
 	return controller.Ok(ctx, "OK")
 }
@@ -147,7 +151,7 @@ func (controller *Controller) Delete(ctx echo.Context) error {
 
 import "<% project_name %>/src/controllers/controller"
 
-type Controller {
+type Controller struct {
 	controller.Base
 }
 
