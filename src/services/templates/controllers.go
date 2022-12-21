@@ -149,13 +149,17 @@ func (controller *Controller) Delete(ctx echo.Context) error {
 }`
 	controllersNewController = `package <% new_controller_name %>_controller
 
-import "<% project_name %>/src/controllers/controller"
+import (
+	"<% project_name %>/src/controllers/controller"
+	"<% project_name %>/src/events"
+	<% controllers_import_repositories %>
+)
 
 type Controller struct {
 	controller.Base
 }
 
-func Create() *Controller {
+func Create(<% controllers_api_repositories %>apiEvents *events.ApiEvents) *Controller {
 	return &Controller{}
 }`
 	controllersNewValidation = `package <% new_controller_name %>_controller

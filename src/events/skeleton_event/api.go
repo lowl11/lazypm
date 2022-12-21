@@ -85,7 +85,8 @@ func (event *Event) NewController(config *models.ControllerConfig) error {
 	})
 
 	if err := event.createObject(controllers, &models.ProjectConfig{
-		Name: projectInfo.Project.Name,
+		Name:        projectInfo.Project.Name,
+		UseDatabase: projectInfo.Project.IsDatabase,
 	}); err != nil {
 		return err
 	}

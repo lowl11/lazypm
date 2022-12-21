@@ -9,6 +9,7 @@ import (
 	"lazypm/src/data/models"
 	"lazypm/src/services/array_converter"
 	"lazypm/src/services/templates"
+	"strconv"
 	"strings"
 )
 
@@ -72,17 +73,20 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 	// prepare variables
 	event.variables["project_name"] = config.Name
 	event.variables["project_description"] = config.Description
+	event.variables["project_is_database"] = strconv.FormatBool(config.UseDatabase)
 
 	// fill database variables
 	if config.UseDatabase {
-		// config variables
-		event.variables["database_server"] = config.Database.Server
-		event.variables["database_port"] = config.Database.Port
-		event.variables["database_user"] = config.Database.Username
-		event.variables["database_password"] = config.Database.Password
-		event.variables["database_name"] = config.Database.Name
-		event.variables["database_max_connections"] = config.Database.MaxConnections
-		event.variables["database_max_lifetime"] = config.Database.MaxLifetime
+		if config.Database != nil {
+			// config variables
+			event.variables["database_server"] = config.Database.Server
+			event.variables["database_port"] = config.Database.Port
+			event.variables["database_user"] = config.Database.Username
+			event.variables["database_password"] = config.Database.Password
+			event.variables["database_name"] = config.Database.Name
+			event.variables["database_max_connections"] = config.Database.MaxConnections
+			event.variables["database_max_lifetime"] = config.Database.MaxLifetime
+		}
 
 		// go mod libraries
 		event.variables["gomod_sqlx"] = "github.com/jmoiron/sqlx v1.3.5"
@@ -98,6 +102,7 @@ func (event *Event) createFile(file *models.SkeletonObject, config *models.Proje
 		event.variables["api_import_repositories"] = templates.FillVariables("api_import_repositories", event.variables)
 		event.variables["api_repositories_create"] = templates.Get("api_repositories_create")
 		event.variables["api_field_repositories"] = templates.Get("api_field_repositories")
+		event.variables["controllers_api_repositories"] = "apiRepositories *repositories.ApiRepositories, "
 
 		// fill templates
 		event.variables["config_database"] = templates.FillVariables("config_database", event.variables)
@@ -204,6 +209,7 @@ func (event *Event) loadVariables() {
 	event.variables["project_name"] = "project_name"
 	event.variables["project_description"] = "Your Project Description"
 	event.variables["port"] = "8080"
+	event.variables["project_is_database"] = "false"
 
 	// database variables
 	event.variables["database_server"] = ""
@@ -230,4 +236,5 @@ func (event *Event) loadVariables() {
 	event.variables["api_import_repositories"] = ""
 	event.variables["api_repositories_create"] = ""
 	event.variables["api_field_repositories"] = ""
+	event.variables["controllers_api_repositories"] = ""
 }

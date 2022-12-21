@@ -54,7 +54,8 @@ app`
 
 	rootPackage = `{
 	"project": {
-		"name": "<% project_name %>"
+		"name": "<% project_name %>",
+		"is_database": <% project_is_database %>
 	}
 }`
 )
